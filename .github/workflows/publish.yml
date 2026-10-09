@@ -25,7 +25,8 @@ on:
     inputs:
       node-version:
         type: string
-        default: '22.16.0'
+        # npm 12 needs Node ^22.22.2 or ^24.15.0. Kept equal to pr.yml's default.
+        default: '24.21.0'
       npm-version:
         description: >-
           FALLBACK only: the release runs on the npm pinned in the package's `packageManager`.
@@ -83,9 +84,8 @@ jobs:
       # commit could be written by a different npm than the repo uses.
       #
       # The parsing (exact `npm@X.Y.Z` only, `+sha…` suffix stripped) is the same as the
-      # `Use the npm named in packageManager` step of linked-fw/.github's pr.yml, and this step
-      # matches linked-fw/.github's publish.yml. This org's pr.yml does not enforce
-      # `packageManager` yet — an intentional gap for now, not drift.
+      # `Use the npm named in packageManager` step of pr.yml (here and in linked-fw/.github), and
+      # this step matches linked-fw/.github's publish.yml.
       #
       # When the pin is unusable (absent, non-npm, not exact) it installs the `npm-version`
       # input — what this step always did before. A pin below 11.15.0 (no `npm stage`) is
